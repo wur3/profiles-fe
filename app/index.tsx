@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Row, Table } from 'react-native-table-component';
+import { DataTable } from 'react-native-paper';
 
-interface Profile {
+class Profile {
   firstName: string;
   lastName: string;
   age?: number;
   birthday?: Date;
+  constructor(fn: string, ln: string) {
+    this.firstName = fn;
+    this.lastName = ln;
+  }
+  withAge(a: number) {
+    this.age = a;
+    return this;
+  }
+  withBirthday(b: Date) {
+    this.birthday = b;
+    return this;
+  }
 }
 
 
@@ -19,92 +31,43 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <TableTwo></TableTwo>
+      <MainTable></MainTable>
     </View>
   );
 }
 
-const tableData = {
-    tableHead: ['name', 'age', 'allergies'],
-    widthArr: [140, 160, 180],
-    tableData: [
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-      ['Bitcoin (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.',
-      '$44,331', '$839,702,328,904'],
-      ['Ethereum', '$3000.9', '$359,080,563,225'],
-      ['Tether', '$1', '$79,470,820,738'],
-      ['BNB', '$413.44', '$69,446,144,361'],
-      ['USD Coin', '$1', '$53,633,260,549'],
-    ],
-};
+const tableData: Profile[] = [
+  new Profile("Fred", "Chang").withAge(23),
+  new Profile("Kris", "Po").withAge(44),
+  new Profile("Kael", "Grieb"),
 
+]
 
-const TableTwo = () => {
-  const [data, setData] = useState(tableData);
+const MainTable = () => {
   return (
-      <View style={styles.container}>
-          <ScrollView horizontal={true}>
-              <View>
-                  <Table borderStyle={{ borderWidth: 1, borderColor: 'purple' }}>
-                      <Row
-                          data={data.tableHead}
-                          widthArr={data.widthArr}
-                          style={styles.head}
-                          textStyle={styles.headText}
-                      />
-                  </Table>
-                  <ScrollView>
-                      <Table borderStyle={{ borderWidth: 1, borderColor: 'purple' }}>
-                          {data.tableData.map((rowData, index) => (
-                              <Row
-                                  key={index}
-                                  data={rowData}
-                                  widthArr={data.widthArr}
-                                  style={styles.rowSection}
-                                  textStyle={styles.text}
-                              />
-                          ))}
-                      </Table>
-                  </ScrollView>
-              </View>
-          </ScrollView>
+    <ScrollView horizontal={true}>
+    <View style={styles.container}>
+          <DataTable>
+              <DataTable.Header style={styles.head}>
+                  <DataTable.Title>First Name</DataTable.Title>
+                  <DataTable.Title>Last Name</DataTable.Title>
+                  <DataTable.Title numeric>Age</DataTable.Title>
+              </DataTable.Header>
+              <ScrollView>
+              <DataTable.Row style={styles.row}>
+                  <DataTable.Cell>Nabendu</DataTable.Cell>
+                  <DataTable.Cell>nabendu@gmail.com</DataTable.Cell>
+                  <DataTable.Cell numeric>33</DataTable.Cell>
+              </DataTable.Row>
+              </ScrollView>
+          </DataTable>
       </View>
-  );
-}
+      </ScrollView>
 
+  )
+}
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10, justifyContent: 'center', backgroundColor: '#fff' },
-  rowSection: { height: 60, backgroundColor: '#E7E6E1' },
-  head: { height: 44, backgroundColor: 'darkblue' },
-  headText: { fontSize: 20, fontWeight: 'bold' , textAlign: 'center', color: 'white' },
-  text: { margin: 6, fontSize: 16, fontWeight: 'bold' , textAlign: 'center' },
+  container: { flex: 1, paddingTop: 100, paddingHorizontal: 30,backgroundColor: '#fff' },
+  head: { height: 44, backgroundColor: 'lavender' },
+  row: { height: 40, backgroundColor: 'lightyellow' },
 })
