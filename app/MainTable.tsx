@@ -14,19 +14,18 @@ const tableData: Profile[] = [
 
 const MainTable = () => {
   return (
-        <DataTable>
-            <DataTable.Header style={styles.head}>
-                <DataTable.Title>First Name</DataTable.Title>
-                <DataTable.Title>Last Name</DataTable.Title>
-                <DataTable.Title numeric>Age</DataTable.Title>
-            </DataTable.Header>
-            <ScrollView>
-            {tableData.map((prof, index) => (
-              <TableRow key={index} profile={prof}></TableRow>
-          ))}
-            </ScrollView>
-        </DataTable>
-    
+    <DataTable>
+        <DataTable.Header style={styles.head}>
+            <DataTable.Title>First Name</DataTable.Title>
+            <DataTable.Title>Last Name</DataTable.Title>
+            <DataTable.Title numeric>Age</DataTable.Title>
+        </DataTable.Header>
+        <ScrollView>
+        {tableData.map((prof, index) => (
+          <TableRow key={index} profile={prof}></TableRow>
+        ))}
+        </ScrollView>
+    </DataTable>
   )
 }
 
