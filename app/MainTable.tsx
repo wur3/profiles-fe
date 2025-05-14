@@ -21,8 +21,8 @@ const MainTable = () => {
                 <DataTable.Title numeric>Age</DataTable.Title>
             </DataTable.Header>
             <ScrollView>
-            {tableData.map(prof => (
-              <TableRow profile={prof}></TableRow>
+            {tableData.map((prof, index) => (
+              <TableRow key={index} profile={prof}></TableRow>
           ))}
             </ScrollView>
         </DataTable>
